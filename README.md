@@ -46,3 +46,98 @@ curl -H "Content-Type: application/json" -XGET
 }
 '
 ```
+
+## HTTP i RESTful API
+```shell
+curl -H "Content-Type: application/json" <URL> -d '<BODY>'
+```
+* Wysyłanie danych
+```shell
+curl -H "Content-Type: application/json" -XPUT '127.0.0.1:9200/movies/movie/109487' -d
+
+```
+
+## Tip ubuntu dla skrócenia wprowadzanych adresów
+
+```shell
+cd ~
+pwd => 
+mkdir bin
+cd bin
+nano curl
+
+#!/bin/bash
+/usr/bin/curl -H "Content-Type: application/json" "$@"
+
+sudo chmod a+x curl
+cd ~
+pwd =>
+source .profile
+which curl
+```
+
+## Field types
+1. String
+2. Byte
+3. Short
+4. Intiger
+5. Long
+6. Float
+7. Double
+8. Boolean
+9. Date
+
+## Field Index 
+1. full-text search
+2. not-analyzed 
+
+## Field Analyzer 
+1. Filtry znaków 
+2. Tokenizer 
+3. Token Filter 
+
+### Podział analizatorów 
+1. Standard 
+2. Simple
+3. Whitespace
+4. Language
+
+
+## Movielens
+Movielens id a free dataset of movie. 
+
+* Pobranie bazy do ćwiczeń z strony
+```shell
+https://grouplens.org/datasets/movielens/
+```
+
+* Dodanie pojedynczego filmu 
+```shell
+```
+
+* Mapowanie danych 
+Mapowanie jako definicja schematu. Dedinicja w jakim formacie przechowywać dane, jak je indeksować i jak analizować.
+
+```shell
+curl -H "Content-Type: application/json" -XPUT
+'127.0.0.1:9200/movies' -d 
+'
+{
+  "mappings": {
+    "properties": {
+      "year": {
+        "type": "date"
+      }
+    }
+  }
+}
+'
+```
+* Sprawdzenie czy mapowanie się powiodło 
+```shell
+curl -H "Content-Type: application/json" -XGET 127.0.0.1:9200/movies/_mapping
+```
+odp:
+```shell
+127.0.0.1:9200/movies/_mapping
+```

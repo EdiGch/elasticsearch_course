@@ -111,10 +111,6 @@ Movielens id a free dataset of movie.
 https://grouplens.org/datasets/movielens/
 ```
 
-* Dodanie pojedynczego filmu 
-```shell
-```
-
 * Mapowanie danych 
 Mapowanie jako definicja schematu. Dedinicja w jakim formacie przechowywać dane, jak je indeksować i jak analizować.
 
@@ -140,4 +136,27 @@ curl -H "Content-Type: application/json" -XGET 127.0.0.1:9200/movies/_mapping
 odp:
 ```shell
 127.0.0.1:9200/movies/_mapping
+```
+
+* Dodanie pojedynczego filmu 
+```shell
+curl -XPOST 127.0.0.1:9200/movies/_doc/109487 -d '
+{
+    "genre": [
+        "IMAX", 
+        "Sci-Fi"
+    ],
+    "title": "Interstellar",
+    "year": 2014
+}
+'
+```
+odp:
+```shell
+{"_index":"movies","_type":"_doc","_id":"109487","_version":1,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1}
+```
+* Pobranie wprowadzonego filmu 
+?pretty - wynik będzie sformatowany, łatwo czytelnym
+```shell
+curl -XGET 127.0.0.1:9200/movies/_search?pretty
 ```

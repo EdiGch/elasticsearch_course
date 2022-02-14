@@ -158,7 +158,7 @@ odp:
 * Pobranie wprowadzonego filmu 
 ?pretty - wynik będzie sformatowany, łatwo czytelnym
 ```shell
-curl -XGET 127.0.0.1:9200/movies/_search?pretty
+curl -XGET 127.0.0.1:9200/movies/_doc/109487?pretty
 ```
 
 * Dodanie wielu documentów 
@@ -169,4 +169,9 @@ curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @/home/gcharkiewicz/myElast
 * Pokaż wszystkie dokumenty 
 ```shell
 curl -XGET 127.0.0.1:9200/movies/_search?pretty
+```
+
+* Update 
+```shell
+curl -XPUT 127.0.0.1:9200/movies/_doc/109487?pretty
 ```

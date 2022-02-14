@@ -160,3 +160,13 @@ odp:
 ```shell
 curl -XGET 127.0.0.1:9200/movies/_search?pretty
 ```
+
+* Dodanie wielu documentów 
+```shell
+curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @/home/gcharkiewicz/myElasticsearch/elasticsearch_course/Movielens/movies.json
+```
+
+* Pokaż wszystkie dokumenty 
+```shell
+curl -XGET 127.0.0.1:9200/movies/_search?pretty
+```

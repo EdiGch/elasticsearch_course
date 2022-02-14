@@ -161,7 +161,7 @@ odp:
 curl -XGET 127.0.0.1:9200/movies/_doc/109487?pretty
 ```
 
-* Dodanie wielu documentów 
+* Dodanie wielu documentów
 ```shell
 curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @/home/gcharkiewicz/myElasticsearch/elasticsearch_course/Movielens/movies.json
 ```
@@ -174,4 +174,14 @@ curl -XGET 127.0.0.1:9200/movies/_search?pretty
 * Update 
 ```shell
 curl -XPUT 127.0.0.1:9200/movies/_doc/109487?pretty
+```
+
+* Szukanie
+```shell
+curl -XGET 127.0.0.1:9200/movies/_search?q=Dark
+```
+
+* Usunięcie 
+```shell
+curl -XDELETE 127.0.0.1:9200/movies/_doc/58559
 ```

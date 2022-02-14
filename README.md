@@ -185,3 +185,31 @@ curl -XGET 127.0.0.1:9200/movies/_search?q=Dark
 ```shell
 curl -XDELETE 127.0.0.1:9200/movies/_doc/58559
 ```
+
+* Współbieżność, unikanie problemów ze współbieżnością
+  * _seq_no
+  * _primary_term
+  * retry_on_conflict=5 (automatycznie ponów próbę do 5 razy)
+```shell
+curl -XPUT  "127.0.0.1:9200/movies/_doc/109487?if_seq_no=8&if_primary_term=2" -d 
+'
+{
+    "genre": [
+        "IMAX", 
+        "Sci-Fi"
+    ],
+    "title": "Interstellar - EDIT- Edit",
+    "year": 2014
+}
+'
+```
+retry_on_conflict=5
+```shell
+curl -XPOST "127.0.0.1:9200/movies/_doc/109487/_update?retry_on_conflict=5"
+'
+{
+    "doc": {
+        "title": "Interstellar - EDIT- Edit AUTOMAT"
+    }
+}
+```

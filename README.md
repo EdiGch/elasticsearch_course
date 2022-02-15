@@ -268,3 +268,54 @@ curl -XDELETE 127.0.0.1:9200/movies
 }
 '
 ```
+
+## Modelowanie danych w ES, normalizacja danych
+
+* Relacja rodzic dziecko. 
+
+dane: 
+```shell
+wget http://media.sundog-soft.com/es7/series.json
+```
+* wgranie danych
+```shell
+curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @/home/gcharkiewicz/myElasticsearch/elasticsearch_course/Movielens/series.json
+```
+
+* Wszystkie filmy z serii Gwiezdne Wojny
+```shell
+curl -XGET 127.0.0.1:9200/series/_search?pretty -d
+'
+{
+    "query": {
+        "has_parent": {
+            "parent_type": "franchise",
+            "query": {
+                "match": {
+                    "title": "Star Wars"
+                }
+            }
+        }
+    }
+}
+'
+```
+
+* Znajdź dokładny film 
+```shell
+curl -XGET 127.0.0.1:9200/series/_search?pretty -d
+'
+{
+    "query": {
+        "has_child": {
+            "type": "film",
+            "query": {
+                "match": {
+                    "title": "The Force Awakens"
+                }
+            }
+        }
+    }
+}
+'
+```

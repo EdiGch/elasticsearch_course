@@ -213,3 +213,58 @@ curl -XPOST "127.0.0.1:9200/movies/_doc/109487/_update?retry_on_conflict=5"
     }
 }
 ```
+
+## Szukanie 
+Opcje wyszukiwanie są uzależnione od mapowania, raz stworzone mapowanie jest niezmienne, 
+chcąc zmienić rodzaj pola należy usunąć index.
+
+* Szykanie rozmyte
+
+```shell
+curl -XGET 127.0.0.1:9200/movies/_search?pretty -d
+'
+{
+    "query": {
+        "match_phrase": {
+            "genre": "sci"
+        }
+    }
+}
+'
+```
+
+* Szukanie ściśle określone 
+```shell
+
+```
+
+* Usunięcie całego indexu 
+```shell
+curl -XDELETE 127.0.0.1:9200/movies
+```
+
+* Mapowanie 
+  * "type": "keyword" - oznacza że bedziemy dokonywać tylko dokładnych dopoasowań
+  * "type": "text" - - zostanie zastosowany analizator, możemy szukać po częściowym dopasowaniu
+```shell
+'
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "year": {
+        "type": "date"
+      },
+      "genre": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text"
+      }
+    }
+  }
+}
+'
+```

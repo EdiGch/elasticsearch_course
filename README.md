@@ -238,14 +238,27 @@ curl -XGET 127.0.0.1:9200/movies/_search?pretty -d
 
 ```
 
+* W indeksie movies, tytuł zamiera słowo 'star'
+```shell
+curl -XGET "127.0.0.1:9200/movies/_search?q=title:star&pretty"
+```
+ * rok jest większy niz 2010, tytuł zawiera słowo 'trek'
+```shell
+curl -XGET "127.0.0.1:9200/movies/_search?q=+year:>2010+title:trek&pretty"
+```
+
+
+
+
 * Usunięcie całego indexu 
 ```shell
 curl -XDELETE 127.0.0.1:9200/movies
 ```
 
-* Mapowanie 
+## Mapowanie 
   * "type": "keyword" - oznacza że bedziemy dokonywać tylko dokładnych dopoasowań
   * "type": "text" - - zostanie zastosowany analizator, możemy szukać po częściowym dopasowaniu
+  * mapowanie automatyczne po pierwszym wgraniu documentu
 ```shell
 '
 {

@@ -281,6 +281,20 @@ curl -XGET "127.0.0.1:9200/movies/_search?
 }
 '
 ```
+* Serch: Example Boolean Query With a Filter
+```shell
+curl -XGET "127.0.0.1:9200/movies/_search?
+'
+{
+    "query": {
+        "bool": {
+            "must": {"term": {"title":"trek"}},
+            "filter": {"range": {"year": {"gte": 2010}}}
+        }
+    }
+}
+'
+```
 
 * Wyszukanie/ Doposowanie fraz
   * match_phrase - Musisz znaleźć wszystkie terminy we właściwej kolejności
@@ -304,21 +318,6 @@ curl -XGET "127.0.0.1:9200/movies/_search?
     "query": {
         "match_phrase": {
             "title": {"query": "star beyond", "slop": 1}
-        }
-    }
-}
-'
-```
-
-* Serch: Example Boolean Query With a Filter
-```shell
-curl -XGET "127.0.0.1:9200/movies/_search?
-'
-{
-    "query": {
-        "bool": {
-            "must": {"term": {"title":"trek"}},
-            "filter": {"range": {"year": {"gte": 2010}}}
         }
     }
 }

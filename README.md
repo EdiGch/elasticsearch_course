@@ -247,6 +247,56 @@ curl -XGET "127.0.0.1:9200/movies/_search?q=title:star&pretty"
 curl -XGET "127.0.0.1:9200/movies/_search?q=+year:>2010+title:trek&pretty"
 ```
 
+* Filters
+  * Term - Filtruj według dokładnych wartości
+    * {"term": {"year": 2014}}
+  * Terns - Dopasuj, jeśli jakiekolwiek dokładne wartości na liście pasują
+    * {"terms": {"genre": ["Sci-Fi", "Adventure"]}}
+  * Range - Znajdź liczby lub daty z danego zakresu (gt, gte, lt, lte)
+    * {"range": {"year":{"gte": 2010}}}
+  * Exists - Znajdź dokumenty, w których istnieje pole
+    * {"exists": {"field": "tags"}}
+  * Missing - Zaginiony. Znajdź dokumenty, w których brakuje pola
+    * {"missing": {"field": "tags"}}
+  * Bool - Combine filters with boolean logic (must, must_not, should)
+
+* Queries
+  * Match_all - Zwraca wszystkie dokumenty i jest wartością domyślną. Zwykle używany z filtrem
+    * {"match_all": {}}
+  * Match - Przeszukuje analizowane wyniki, takie jak wyszukiwanie pełnotekstowe
+    * {"match": {"title": "star"}}
+  * Multi_match - Uruchom to samo zapytanie w wielu polach
+    * {"multi_match": {"query": "star", "fields": ["title", "synopsis"] }}
+  * Bool
+  * Szukanie filmu który w tytule ma 'trek'
+```shell
+curl -XGET "127.0.0.1:9200/movies/_search?
+'
+{
+    "query": {
+        "match": {
+            "title":"trek"
+        }
+    }
+}
+'
+```
+
+* Serch: Example Boolean Query With a Filter
+```shell
+curl -XGET "127.0.0.1:9200/movies/_search?
+'
+{
+    "query": {
+        "bool": {
+            "must": {"term": {"title":"trek"}},
+            "filter": {"range": {"year": {"gte": 2010}}}
+        }
+    }
+}
+'
+```
+
 
 
 

@@ -282,6 +282,34 @@ curl -XGET "127.0.0.1:9200/movies/_search?
 '
 ```
 
+* Wyszukanie/ Doposowanie fraz
+  * match_phrase - Musisz znaleźć wszystkie terminy we właściwej kolejności
+```shell
+curl -XGET "127.0.0.1:9200/movies/_search?
+'
+{
+    "query": {
+        "match_phrase": {
+            "title":"Star wars"
+        }
+    }
+}
+'
+```
+Slop
+```shell
+curl -XGET "127.0.0.1:9200/movies/_search?
+'
+{
+    "query": {
+        "match_phrase": {
+            "title": {"query": "star beyond", "slop": 1}
+        }
+    }
+}
+'
+```
+
 * Serch: Example Boolean Query With a Filter
 ```shell
 curl -XGET "127.0.0.1:9200/movies/_search?

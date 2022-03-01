@@ -343,7 +343,21 @@ curl -XGET 127.0.0.1:9200/movies/_search?pretty -d
 }
 '
 ```
+## Paginacja 
+1. From 
+2. Size
 
+```shell
+curl -XGET 127.0.0.1:9200/movies/_search?size=2&from=2&pretty
+
+curl -XGET 127.0.0.1:9200/movies/_search?pretty -d
+'
+{
+    "from": 2,
+    "size": 2,
+    "query": {"match": {"title":"trek"}}
+}
+```
 
 
 * Usunięcie całego indexu 
